@@ -26,6 +26,18 @@ class Parser {
     return equality();
   }
 
+  // private Expr comma() {
+  //   Expr expr = equality();
+
+  //   while(match(COMMA)) {
+  //     Token operator = previous();
+  //     Expr right = equality();
+  //     return new Expr.Unary(operator, right);
+  //   }
+
+  //   return expr;
+  // }
+
   private Expr equality() {
     Expr expr = comparison();
 
