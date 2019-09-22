@@ -75,21 +75,21 @@ abstract class Expr {
     final Token operator;
     final Expr right;
   }
-  static class Logical extends Expr {               
+  static class Logical extends Expr {
     Logical(Expr left, Token operator, Expr right) {
-      this.left = left;                             
-      this.operator = operator;                     
-      this.right = right;                           
+      this.left = left;
+      this.operator = operator;
+      this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {              
-      return visitor.visitLogicalExpr(this);        
-    }                                               
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitLogicalExpr(this);
+    }
 
-    final Expr left;                                
-    final Token operator;                           
-    final Expr right;                               
-  }     
+    final Expr left;
+    final Token operator;
+    final Expr right;
+  }
   static class Variable extends Expr {
     Variable(Token name) {
       this.name = name;

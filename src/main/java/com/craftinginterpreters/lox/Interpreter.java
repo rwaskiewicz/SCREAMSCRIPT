@@ -195,7 +195,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
   @Override
   public Void visitIfStmt(Stmt.If stmt) {
-    if (isTruthy(stmt.condition)) {
+    if (isTruthy(evaluate(stmt.condition))) {
       execute(stmt.thenBranch);
     } else if (stmt.elseBranch != null) {
       execute(stmt.elseBranch);
@@ -218,6 +218,14 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     environment.define(stmt.name.lexeme, value);
+    return null;
+  }
+
+  @Override
+  public Void visitWhileStmt(Stmt.While stmt) {
+    while (isTruthy(evaluate(stmt.condition))) {
+      execute(stmt.body);
+    }
     return null;
   }
 
