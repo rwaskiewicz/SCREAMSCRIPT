@@ -141,7 +141,7 @@ class Parser {
   }  
   
   private Expr expression() {
-    return equality();
+    return assignment();
   }
 
   // private Expr comma() {
