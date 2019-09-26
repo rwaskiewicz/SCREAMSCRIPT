@@ -48,6 +48,7 @@ abstract class Stmt {
     final Stmt thenBranch;
     final Stmt elseBranch;
   }
+  // Consider making this a native fn
   static class Print extends Stmt {
     Print(Expr expression) {
       this.expression = expression;
