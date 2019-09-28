@@ -5,5 +5,7 @@ fun fibonacci(n) {
 
 var runs = 30;
 for (var i = 0; i < runs; i = i + 1) {
+  var start = clock();
   print "Calculation " + (i+1) + "/" + runs + ": " + fibonacci(i);
+  print "Runtime " + (clock() - start);
 }
