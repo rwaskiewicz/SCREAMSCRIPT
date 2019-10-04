@@ -10,6 +10,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     // tracks local block scopes.  vars at global level are more dynamic
     // if we don't find, we assume it must be glboal
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
+    private FunctionType currentFunction = FunctionType.NONE;
 
     Resolver(Interpreter interpreter) {
         this.interpreter = interpreter;
@@ -30,6 +31,9 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         }
 
         Map<String, Boolean> scope = scopes.peek();
+        if (scope.containsKey(name.lexeme)) {
+            Lox.error(name, "Variable with this name is declared in this scope.");
+        }
         // mark as 'not ready yet', it's not finished being intitialized
         scope.put(name.lexeme, false);
     }
@@ -47,7 +51,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         for (int i = scopes.size() - 1; i >= 0; i--) {
             if (scopes.get(i).containsKey(name.lexeme)) {
                 interpreter.resolve(expr, scopes.size() - 1 -i);
-                return;;
+                return;
             }
         }
 
@@ -68,7 +72,11 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         expr.accept(this);
     }
 
-    private void resolveFunction(Stmt.Function function) {
+    private void resolveFunction(Stmt.Function function, FunctionType type) {
+        // Rely on the JVM/local stack to store these
+        FunctionType enclosingFunction = currentFunction;
+        currentFunction = type;
+
         beginScope();
         for (Token param : function.params) {
             declare(param);
@@ -78,6 +86,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         // here with static analysis, we traverse the body NOW
         resolve(function.body);
         endScope();
+        currentFunction = enclosingFunction;
     }
 
     @Override
@@ -95,7 +104,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         declare(stmt.name);
         define(stmt.name);
 
-        resolveFunction(stmt);
+        resolveFunction(stmt, FunctionType.FUNCTION);
         return null;
     }
 
@@ -194,6 +203,10 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
+        if (currentFunction == FunctionType.NONE) {
+            Lox.error(stmt.keyword, "Cannot return from top level code");
+        }
+
         if (stmt.value != null) {
             resolve(stmt.value);
         }
