@@ -330,6 +330,9 @@ class Parser {
     while(true) {
       if (match(LEFT_PAREN)) {
         expr = finishCall(expr);
+      } else if (match(DOT)) {
+        Token name = consume(IDENTIFIER, "Expect a property name after '.'.");
+        expr = new Expr.Get(expr, name);
       } else {
         break;
       }
@@ -374,7 +377,7 @@ class Parser {
   }
 
   /**
-   * See if the current token is any of the given {@link types}. Will consume a token as a byproduct.
+   * See if the current token is any of the given {@code types}. Will consume a token as a byproduct.
    * @param types TokenTypes to check against the current token.
    */
   private boolean match(TokenType... types) {
