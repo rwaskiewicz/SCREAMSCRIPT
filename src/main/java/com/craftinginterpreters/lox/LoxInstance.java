@@ -19,7 +19,7 @@ public class LoxInstance {
 
         LoxFunction method = klass.findMethod(name.lexeme);
         if (method != null) {
-            return method;
+            return method.bind(this);
         }
         // Design decision - throw instead of implicitly returning nil
         throw new RuntimeError(name, "Undefined property '" + name.lexeme + "'.");
