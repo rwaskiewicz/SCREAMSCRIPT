@@ -17,8 +17,16 @@ public class LoxInstance {
             return fields.get(name.lexeme);
         }
 
+        LoxFunction method = klass.findMethod(name.lexeme);
+        if (method != null) {
+            return method;
+        }
         // Design decision - throw instead of implicitly returning nil
         throw new RuntimeError(name, "Undefined property '" + name.lexeme + "'.");
+    }
+
+    void set(Token name, Object value) {
+        fields.put(name.lexeme, value);
     }
 
     @Override

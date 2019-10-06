@@ -94,7 +94,7 @@ abstract class Expr {
     final Object value;
   }
   static class Set extends Expr {
-    Set(Expr object, Token name, Object value) {
+    Set(Expr object, Token name, Expr value) {
       this.object = object;
       this.name = name;
       this.value = value;
@@ -106,7 +106,7 @@ abstract class Expr {
 
     final Expr object;
     final Token name;
-    final Object value;
+    final Expr value;
   }
   static class Unary extends Expr {
     Unary(Token operator, Expr right) {

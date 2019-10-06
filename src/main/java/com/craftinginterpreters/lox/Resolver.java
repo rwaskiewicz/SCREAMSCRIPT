@@ -82,7 +82,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
             declare(param);
             define(param);
         }
-        // differs from runtime, where we don't care until we call the method.
+        // body resolution differs from runtime, where we don't care about the body until we call the method.
         // here with static analysis, we traverse the body NOW
         resolve(function.body);
         endScope();
@@ -101,6 +101,12 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     public Void visitClassStmt(Stmt.Class stmt) {
         declare(stmt.name);
         define(stmt.name);
+
+        for (Stmt.Function method : stmt.methods) {
+            FunctionType declaration = FunctionType.METHOD;
+            resolveFunction(method, declaration);
+        }
+
         return null;
     }
 
@@ -190,6 +196,14 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     public Void visitLogicalExpr(Expr.Logical expr) {
         resolve(expr.left);
         resolve(expr.right);
+        return null;
+    }
+
+    @Override
+    public Void visitSetExpr(Expr.Set expr) {
+        // This is eval at runtime, similar to get expr.  Resolve the LHS and RHS
+        resolve(expr.value);
+        resolve(expr.object);
         return null;
     }
 
