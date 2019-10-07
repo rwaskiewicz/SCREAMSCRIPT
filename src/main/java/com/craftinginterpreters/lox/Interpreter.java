@@ -96,6 +96,11 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
   }
 
   @Override
+  public Object visitThisExpr(Expr.This expr) {
+    return lookUpVariable(expr.keyword, expr);
+  }
+
+  @Override
   public Object visitUnaryExpr(Expr.Unary expr) {
     Object right = evaluate(expr.right);
 
@@ -179,7 +184,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     Map<String, LoxFunction> methods = new HashMap<>();
     for (Stmt.Function method : stmt.methods) {
-      LoxFunction function = new LoxFunction(method, environment);
+      LoxFunction function = new LoxFunction(method, environment, method.name.lexeme.equals("init"));
       methods.put(method.name.lexeme, function);
     }
     // Create the runtime representation of the class
@@ -292,7 +297,8 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
   @Override
   public Void visitFunctionStmt(Function stmt) {
-    LoxFunction function = new LoxFunction(stmt, environment);
+    // function declarations are never initializers
+    LoxFunction function = new LoxFunction(stmt, environment, false);
     environment.define(stmt.name.lexeme, function);
     return null;
   }

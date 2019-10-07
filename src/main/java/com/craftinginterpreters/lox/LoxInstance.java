@@ -18,7 +18,10 @@ public class LoxInstance {
         }
 
         LoxFunction method = klass.findMethod(name.lexeme);
+        // Need to create an environment for 'this' keyword that is encountered
+        // Semi-confusingly enough, we're passing in the Java 'this' as an arg to bind()
         if (method != null) {
+            // 'this' (the arg) is the function that we will use to bind the keyword 'this' (in JLox to)
             return method.bind(this);
         }
         // Design decision - throw instead of implicitly returning nil
