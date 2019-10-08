@@ -10,3 +10,5 @@ class Thing {
 
 var callback = Thing().getCallback();
 callback();
+var callback2 = Thing().getCallback;
+callback2()();
