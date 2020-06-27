@@ -1,0 +1,10 @@
+VAR A = "global";
+{
+  FUN SHOW_A() {
+    PRINT A;
+  }
+
+  SHOW_A();
+  VAR A = "block";
+  SHOW_A();
+}

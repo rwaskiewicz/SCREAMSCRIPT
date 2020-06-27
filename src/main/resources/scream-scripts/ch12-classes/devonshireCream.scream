@@ -1,0 +1,7 @@
+CLASS DEVONSHIRE_CREAM {
+    SERVE_ON() {
+        RETURN "scones";
+    }
+}
+
+PRINT DEVONSHIRE_CREAM;

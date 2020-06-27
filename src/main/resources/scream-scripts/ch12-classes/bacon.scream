@@ -1,0 +1,7 @@
+CLASS BACON {
+    EAT() {
+        PRINT "CRUNCH CRUNCH CRUNCH!";
+    }
+}
+
+BACON().EAT();

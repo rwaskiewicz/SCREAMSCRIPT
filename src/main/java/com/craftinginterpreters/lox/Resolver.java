@@ -21,7 +21,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     private final Interpreter interpreter;
     // tracks local block scopes.  vars at global level are more dynamic
-    // if we don't find, we assume it must be glboal
+    // if we don't find, we assume it must be global
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
     private FunctionType currentFunction = FunctionType.NONE;
     private ClassType currentClass = ClassType.NONE;
@@ -46,9 +46,9 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
         Map<String, Boolean> scope = scopes.peek();
         if (scope.containsKey(name.lexeme)) {
-            Lox.error(name, "Variable with this name is declared in this scope.");
+            Lox.error(name, "VARIABLE WITH THIS NAME IS DECLARED IN THIS SCOPE!");
         }
-        // mark as 'not ready yet', it's not finished being intitialized
+        // mark as 'not ready yet', it's not finished being initialized
         scope.put(name.lexeme, false);
     }
 
@@ -122,7 +122,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
         // prevent something like `class oops < oops {}`
         if (stmt.superclass != null && stmt.name.lexeme.equals(stmt.superclass.name.lexeme)) {
-            Lox.error(stmt.superclass.name, "A class cannot inherit from itself.");
+            Lox.error(stmt.superclass.name, "A CLASS CANNOT INHERIT FROM ITSELF!");
         }
 
         // resolve a class that's _likely_ to be global, but may not be
@@ -134,17 +134,17 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         // create a new scope surrounding class's methods and define super
         if (stmt.superclass != null) {
             beginScope();
-            scopes.peek().put("super", true);
+            scopes.peek().put("SUPER", true);
         }
 
         // whenever a 'this' expr is encountered in a method, will resolve to a 'local' variable defined in an implicit
         // scope just outside of the block for the method body
         beginScope();
-        scopes.peek().put("this", true);
+        scopes.peek().put("THIS", true);
 
         for (Stmt.Function method : stmt.methods) {
             FunctionType declaration = FunctionType.METHOD;
-            if (method.name.lexeme.equals("init")) {
+            if (method.name.lexeme.equals("INIT")) {
                 declaration = FunctionType.INITIALIZER;
             }
             resolveFunction(method, declaration);
@@ -162,7 +162,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        // declare and define the name of the function in the current scope, eagely
+        // declare and define the name of the function in the current scope, eagerly
         // allows a fn to recursively refer to itself in its own body
         declare(stmt.name);
         define(stmt.name);
@@ -193,7 +193,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitVariableExpr(Expr.Variable expr) {
         if (!scopes.isEmpty() && scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
-            Lox.error(expr.name, "Cannot read local variable in its own initializer");
+            Lox.error(expr.name, "CANNOT READ LOCAL VARIABLE IN ITS OWN INITIALIZER!");
         }
 
         resolveLocal(expr, expr.name);
@@ -260,9 +260,9 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitSuperExpr(Expr.Super expr) {
         if (currentClass == ClassType.NONE) {
-            Lox.error(expr.keyword, "Cannot use 'super' outside of a class.");
+            Lox.error(expr.keyword, "CANNOT USE 'SUPER' OUTSIDE OF A CLASS!");
         } else if (currentClass != ClassType.SUBCLASS) {
-            Lox.error(expr.keyword, "Cannot use 'super' with no superclass.");
+            Lox.error(expr.keyword, "CANNOT USE 'SUPER' WITH NO SUPER CLASS!");
         }
         resolveLocal(expr, expr.keyword);
         return null;
@@ -273,7 +273,7 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         // when resolving 'this', use the currentClass to see if we should report an error about trying to use the this
         // keyword outside the context of a class
         if (currentClass == ClassType.NONE) {
-            Lox.error(expr.keyword, "Cannot use 'this' outside of a class");
+            Lox.error(expr.keyword, "CANNOT USE 'THIS' OUTSIDE OF A CLASS!");
             return null;
         }
         resolveLocal(expr, expr.keyword);
@@ -305,12 +305,12 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
         if (currentFunction == FunctionType.NONE) {
-            Lox.error(stmt.keyword, "Cannot return from top level code");
+            Lox.error(stmt.keyword, "CANNOT RETURN FROM TOP LEVEL CODE!");
         }
 
         if (stmt.value != null) {
             if (currentFunction == FunctionType.INITIALIZER) {
-                Lox.error(stmt.keyword, "cannot return a value from an initializer");
+            Lox.error(stmt.keyword, "CANNOT RETURN A VALUE FROM AN INITIALIZER!");
             }
             resolve(stmt.value);
         }

@@ -18,7 +18,7 @@ public class LoxFunction implements LoxCallable {
     // Becomes the parent of the method body's environment (second diagram with the new 'synthetic' environment)
     Environment environment = new Environment(closure);
     // Declare 'this' in the new parent environment and bind it to the provided instance
-    environment.define("this", instance);
+    environment.define("THIS", instance);
     // for isInitializer, pass on the original method's value
     return new LoxFunction(declaration, environment, isInitializer);
   }
@@ -38,19 +38,19 @@ public class LoxFunction implements LoxCallable {
       interpreter.executeBlock(declaration.body, environment);
     } catch (Return returnValue) {
       if (isInitializer) {
-        return closure.getAt(0, "this");
+        return closure.getAt(0, "THIS");
       }
       return returnValue.value;
     }
 
     if (isInitializer) {
-      return closure.getAt(0, "this");
+      return closure.getAt(0, "THIS");
     }
     return null;
   }
 
   @Override
   public String toString() {
-    return "<fn " + declaration.name.lexeme + ">";
+    return "<FN " + declaration.name.lexeme + ">";
   }
 }

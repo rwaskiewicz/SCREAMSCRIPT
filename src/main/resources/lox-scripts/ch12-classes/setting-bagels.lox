@@ -1,6 +1,0 @@
-class Bagel {}
-var bagel = Bagel();
-bagel.style = "plain";
-print Bagel;
-print bagel;
-print bagel.style;

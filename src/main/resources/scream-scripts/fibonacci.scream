@@ -1,0 +1,11 @@
+FUN FIBONACCI(N) {
+  IF (N <= 1) RETURN N;
+  RETURN FIBONACCI(N - 2) + FIBONACCI(N - 1);
+}
+
+VAR RUNS = 30;
+FOR (VAR I = 0; I < RUNS; I = I + 1) {
+  VAR START = CLOCK();
+  PRINT "Calculation " + (I+1) + "/" + RUNS + ": " + FIBONACCI(I);
+  PRINT "Runtime " + (CLOCK() - START);
+}

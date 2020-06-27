@@ -1,0 +1,14 @@
+CLASS DOUGHNUT {
+  COOK() {
+    PRINT "Fry until golden brown.";
+  }
+}
+
+CLASS BOSTON_CREAM < DOUGHNUT {
+  COOK() {
+    SUPER.COOK();
+    PRINT "Pipe full of custard and coat with chocolate";
+  }
+}
+
+BOSTON_CREAM().COOK();

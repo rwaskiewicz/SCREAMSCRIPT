@@ -1,0 +1,9 @@
+CLASS DOUGHNUT {
+  COOK() {
+    PRINT "Fry until golden brown.";
+  }
+}
+
+CLASS BOSTON_CREAM < DOUGHNUT {}
+
+BOSTON_CREAM().COOK();

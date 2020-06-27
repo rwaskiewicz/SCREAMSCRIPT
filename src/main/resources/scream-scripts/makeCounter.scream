@@ -1,0 +1,13 @@
+FUN MAKE_COUNTER() {
+  VAR I = 0;
+  FUN COUNT() {
+    I = I + 1;
+    PRINT I;
+  }
+
+  RETURN COUNT;
+}
+
+VAR COUNTER = MAKE_COUNTER();
+COUNTER(); // "1".
+COUNTER(); // "2".

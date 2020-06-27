@@ -1,0 +1,10 @@
+CLASS CAKE {
+  TASTE() {
+    VAR ADJECTIVE = "delicious";
+    PRINT "The " + THIS.FLAVOR + " cake is " + ADJECTIVE + "!";
+  }
+}
+
+VAR CAKE = CAKE();
+CAKE.FLAVOR = "German Chocolate";
+CAKE.TASTE();

@@ -1,0 +1,8 @@
+CLASS FOO {
+    INIT() {
+        PRINT THIS;
+    }
+}
+
+VAR FOO = FOO();
+PRINT FOO.INIT();

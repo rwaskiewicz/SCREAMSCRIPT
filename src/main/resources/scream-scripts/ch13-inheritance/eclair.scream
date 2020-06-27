@@ -1,0 +1,7 @@
+// this should throw an error
+CLASS ECLAIR {
+   COOK() {
+     SUPER.COOK();
+     PRINT "Pipe full of crème pâtissière.";
+   }
+ }
