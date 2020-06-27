@@ -1,7 +1,7 @@
-class DevonshireCream {
-    serveOn() {
-        return "scones";
+CLASS DEVONSHIRE_CREAM {
+    SERVE_ON() {
+        RETURN "scones";
     }
 }
 
-print DevonshireCream;
+PRINT DEVONSHIRE_CREAM;

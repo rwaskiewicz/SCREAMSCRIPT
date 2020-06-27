@@ -21,22 +21,22 @@ class Scanner {
 
   static {
     keywords = new HashMap<>();
-    keywords.put("and", AND);
-    keywords.put("class", CLASS);
-    keywords.put("else", ELSE);
-    keywords.put("false", FALSE);
-    keywords.put("for", FOR);
-    keywords.put("fun", FUN);
-    keywords.put("if", IF);
-    keywords.put("nil", NIL);
-    keywords.put("or", OR);
-    keywords.put("print", PRINT);
-    keywords.put("return", RETURN);
-    keywords.put("super", SUPER);
-    keywords.put("this", THIS);
-    keywords.put("true", TRUE);
-    keywords.put("var", VAR);
-    keywords.put("while", WHILE);
+    keywords.put("AND", AND);
+    keywords.put("CLASS", CLASS);
+    keywords.put("ELSE", ELSE);
+    keywords.put("FALSE", FALSE);
+    keywords.put("FOR", FOR);
+    keywords.put("FUN", FUN);
+    keywords.put("IF", IF);
+    keywords.put("NIL", NIL);
+    keywords.put("OR", OR);
+    keywords.put("PRINT", PRINT);
+    keywords.put("RETURN", RETURN);
+    keywords.put("SUPER", SUPER);
+    keywords.put("THIS", THIS);
+    keywords.put("TRUE", TRUE);
+    keywords.put("VAR", VAR);
+    keywords.put("WHILE", WHILE);
   }
 
   Scanner(String source) {
@@ -107,7 +107,7 @@ class Scanner {
             advance();
           }
         } else if (match('*')) {
-          // skip past the immedidate STAR we're currently on
+          // skip past the immediate STAR we're currently on
           advance();
 
           // move to the next STAR
@@ -145,7 +145,7 @@ class Scanner {
           identifier();
         }else {
           // keep on going, let's find as many errors as we can at this point
-          Lox.error(line, "Unexpected character.");
+          Lox.error(line, "UNEXPECTED CHARACTER!");
         }
         break;
     }
@@ -155,7 +155,7 @@ class Scanner {
     while(isAlphaNumeric(peek())) {
       advance();
     }
-    // See if the identifer is a reserved word
+    // See if the identifier is a reserved word
     String text = source.substring(start, current);
     TokenType type = keywords.get(text);
     if (type == null) {
@@ -191,7 +191,7 @@ class Scanner {
     }
 
     if (isAtEnd()) {
-      Lox.error(line, "unterminated string.");
+      Lox.error(line, "UNTERMINATED STRING!");
       return;
     }
 
@@ -231,7 +231,7 @@ class Scanner {
   }
 
   private boolean isAlpha(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+    return (c >= 'A' && c <= 'Z') || c == '_';
   }
 
   private boolean isDigit(char c) {

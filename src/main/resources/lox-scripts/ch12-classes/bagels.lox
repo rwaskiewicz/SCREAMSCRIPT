@@ -1,4 +1,4 @@
-class Bagel {}
-var bagel = Bagel();
-print Bagel;
-print bagel;
+CLASS BAGEL {}
+VAR BAGEL = BAGEL();
+PRINT BAGEL;
+PRINT BAGEL;

@@ -1,11 +1,11 @@
-fun fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 2) + fibonacci(n - 1);
+FUN FIBONACCI(N) {
+  IF (N <= 1) RETURN N;
+  RETURN FIBONACCI(N - 2) + FIBONACCI(N - 1);
 }
 
-var runs = 30;
-for (var i = 0; i < runs; i = i + 1) {
-  var start = clock();
-  print "Calculation " + (i+1) + "/" + runs + ": " + fibonacci(i);
-  print "Runtime " + (clock() - start);
+VAR RUNS = 30;
+FOR (VAR I = 0; I < RUNS; I = I + 1) {
+  VAR START = CLOCK();
+  PRINT "Calculation " + (I+1) + "/" + RUNS + ": " + FIBONACCI(I);
+  PRINT "Runtime " + (CLOCK() - START);
 }

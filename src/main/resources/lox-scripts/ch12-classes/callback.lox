@@ -1,14 +1,14 @@
-class Thing {
-  getCallback() {
-    fun localFunction() {
-      print this;
+CLASS THING {
+  GET_CALLBACK() {
+    FUN LOCAL_FUNCTION() {
+      PRINT THIS;
     }
 
-    return localFunction;
+    RETURN LOCAL_FUNCTION;
   }
 }
 
-var callback = Thing().getCallback();
-callback();
-var callback2 = Thing().getCallback;
-callback2()();
+VAR CALLBACK = THING().GET_CALLBACK();
+CALLBACK();
+VAR CALLBACK2 = THING().GET_CALLBACK;
+CALLBACK2()();

@@ -1,6 +1,6 @@
-class Bagel {}
-var bagel = Bagel();
-bagel.style = "plain";
-print Bagel;
-print bagel;
-print bagel.style;
+CLASS BAGEL {}
+VAR BAGEL = BAGEL();
+BAGEL.STYLE = "plain";
+PRINT BAGEL;
+PRINT BAGEL;
+PRINT BAGEL.STYLE;

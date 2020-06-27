@@ -15,7 +15,7 @@ public class Lox {
 
   public static void main(String[] args) throws IOException {
     if (args.length > 1) {
-      System.out.println("Usage: jlox [script]");
+      System.out.println("USAGE: SCREAM [SCRIPT]");
       System.exit(64);
     } else if (args.length == 1) {
       runFile(args[0]);
@@ -41,7 +41,7 @@ public class Lox {
     BufferedReader reader = new BufferedReader(input);
 
     for (;;) {
-      System.out.print("LOX > ");
+      System.out.print("AHHHHHHH > ");
       run(reader.readLine());
       hadError = false;
     }
@@ -74,20 +74,20 @@ public class Lox {
   }
 
   private static void report(int line, String where, String message) {
-    System.err.println("[line " + line + "] Error" + where + ": " + message);
+    System.err.println("[LINE " + line + "] ERROR" + where + ": " + message);
     hadError = true;
   }
 
   static void error(Token token, String message){
     if (token.type == TokenType.EOF) {
-      report(token.line, " at end", message);
+      report(token.line, " AT END", message);
     } else {
-      report(token.line, " at '" + token.lexeme + "'", message);
+      report(token.line, " AT '" + token.lexeme + "'", message);
     }
   }
 
   static void runtimeError(RuntimeError error) {
-    System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
+    System.err.println(error.getMessage() + "\n[LINE " + error.token.line + "]");
     hadRuntimeError = true;
   }
 }

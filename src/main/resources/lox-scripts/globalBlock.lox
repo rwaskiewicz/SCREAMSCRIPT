@@ -1,10 +1,10 @@
-var a = "global";
+VAR A = "global";
 {
-  fun showA() {
-    print a;
+  FUN SHOW_A() {
+    PRINT A;
   }
 
-  showA();
-  var a = "block";
-  showA();
+  SHOW_A();
+  VAR A = "block";
+  SHOW_A();
 }

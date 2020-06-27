@@ -1,10 +1,10 @@
-class Cake {
-  taste() {
-    var adjective = "delicious";
-    print "The " + this.flavor + " cake is " + adjective + "!";
+CLASS CAKE {
+  TASTE() {
+    VAR ADJECTIVE = "delicious";
+    PRINT "The " + THIS.FLAVOR + " cake is " + ADJECTIVE + "!";
   }
 }
 
-var cake = Cake();
-cake.flavor = "German Chocolate";
-cake.taste();
+VAR CAKE = CAKE();
+CAKE.FLAVOR = "German Chocolate";
+CAKE.TASTE();

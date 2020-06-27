@@ -25,7 +25,7 @@ public class LoxInstance {
             return method.bind(this);
         }
         // Design decision - throw instead of implicitly returning nil
-        throw new RuntimeError(name, "Undefined property '" + name.lexeme + "'.");
+        throw new RuntimeError(name, "UNDEFINED PROPERTY '" + name.lexeme + "'!");
     }
 
     void set(Token name, Object value) {
@@ -34,6 +34,6 @@ public class LoxInstance {
 
     @Override
     public String toString() {
-        return klass.name + " instance";
+        return klass.name + " INSTANCE";
     }
 }
